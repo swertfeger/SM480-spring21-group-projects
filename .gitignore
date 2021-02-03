@@ -1,0 +1,10 @@
+dist/
+node_modules/
+npm-debug.log
+*.pyc
+.DS_Store
+.idea/
+keys
+env
+ubuntu-xenial-16.04-cloudimg-console.log
+.vscode
