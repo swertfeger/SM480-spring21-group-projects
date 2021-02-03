@@ -1,17 +1,14 @@
-import logo from "./logo.svg";
+import React from "react";
+import {Route, Switch, Redirect} from "react-router";
+import {BrowserRouter} from "react-router-dom";
+import {hot} from "react-hot-loader";
 import "./App.scss";
-import Login from "./components/Login";
+import LoginForm from "./js/components/LoginForm";
 
 function App() {
   return (
     <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Login />
-      </header>
+      <LoginForm />
     </div>
   );
 }
