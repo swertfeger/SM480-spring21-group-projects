@@ -1,11 +1,26 @@
 .root {
     font-size: 16px;
 
-    .oAuthLogin {
-        margin-top: 0.25em;
-    }
+    
 
     .fbButton {
         margin-top: 0.25em;
+
+        
+    }
+}
+
+.oAuthLogin {
+    margin-top: 0.25em;
+    
+    button {
+        padding: 0.5rem 1rem;
+        background-color: #336699;
+        color: #FFF;
+
+        &:hover {
+            background-color: #FFFFFF;
+            color: #336699;
+        }
     }
 }

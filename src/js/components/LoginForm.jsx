@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import OAuth2Login from 'react-simple-oauth2-login';
-import styles from "./LoginForm.scss";
 import classnames from "classnames";
+import PropTypes from "prop-types";
 
 function LoginForm(props) {
 
@@ -10,9 +10,9 @@ function LoginForm(props) {
     const onFailure = response => console.error("ERROR: ", response);
     
     return (
-        <div className={styles.root}>
+        <div className={"root"}>
 
-            <div className={styles.oAuthLogin}>
+            <div>
                 <OAuth2Login
                     authorizationUrl="https://accounts.spotify.com/authorize"
                     responseType="token"
@@ -20,11 +20,13 @@ function LoginForm(props) {
                     redirectUri="http://localhost:3000/oauth-callback"
                     onSuccess={onSuccess}
                     onFailure={onFailure}
+                    buttonText={props.loginBtnText}
+                    className={"oAuthLogin"}
                 />
             </div>
 
             <div 
-                className={classnames("fb-login-button", styles.fbButton)}
+                className={classnames("fb-login-button", "fbButton")}
                 data-width=""
                 data-size="large" 
                 data-button-type="login_with"
@@ -35,6 +37,10 @@ function LoginForm(props) {
 
         </div>
     )
+}
+
+LoginForm.propTypes = {
+    loginBtnText: PropTypes.string.isRequired,
 }
 
 export default LoginForm;
