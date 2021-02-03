@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import OAuth2Login from 'react-simple-oauth2-login';
 import styles from "./LoginForm.scss";
 import classnames from "classnames";
+import Input from "./Input";
 
 function LoginForm(props) {
 
@@ -11,6 +12,8 @@ function LoginForm(props) {
     
     return (
         <div className={styles.root}>
+
+            <Input />
 
             <div className={styles.oAuthLogin}>
                 <OAuth2Login
