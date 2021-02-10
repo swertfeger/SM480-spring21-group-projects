@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import OAuth2Login from 'react-simple-oauth2-login';
 import classnames from "classnames";
 import PropTypes from "prop-types";
+import Input from './Input';
 
 function LoginForm(props) {
 
