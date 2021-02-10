@@ -5,6 +5,10 @@ import "./ConnectPopUp.scss";
 
 function ConnectPopUp(props) {
 
+    if(!props.show) {
+        return null;
+    }
+
     return (
         <div className="pop-up">
             <h1 className="pop-up-header"> Connect account? {props.name}</h1>
@@ -20,6 +24,7 @@ function ConnectPopUp(props) {
 ConnectPopUp.propTypes = {
     name: PropTypes.string.isRequired,
     serviceName: PropTypes.string,
+    show: PropTypes.bool,
 }
 
 export default ConnectPopUp;
