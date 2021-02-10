@@ -9,7 +9,7 @@ import Button from "./js/components/Button";
 function App() {
   return (
     <div className='App'>
-      <Button buttontype="secondary-button" full>
+      <Button buttontype="secondary-button" half>
         <p>Hello</p>
       </Button>
       <LoginForm />
