@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Input.scss";
 import PropTypes from "prop-types";
+import Icon from "./Icon";
 function Input(props) {
   const { inputValue, setInputValue } = useState("");
 
@@ -29,7 +30,7 @@ function Input(props) {
 
       {!!props.error && (
         <div className='input__error'>
-          <div className='input__error-icon'></div>
+          <Icon type='error' />
           <div className='input__error-message'>{props.error}</div>
         </div>
       )}

@@ -33,5 +33,9 @@
 
     color: $color--red;
     line-height: 1.5rem;
+
+    &-message {
+      margin-left: 0.5rem;
+    }
   }
 }
