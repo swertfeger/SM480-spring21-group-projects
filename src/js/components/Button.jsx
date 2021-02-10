@@ -6,7 +6,7 @@ import classnames from 'classnames';
 function Button(props) {
 
     return (
-        <button className="standard-button">
+        <button className={props.buttontype}>
             <p>{props.buttontext}</p>
         </button>
     )

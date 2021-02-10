@@ -1,15 +1,32 @@
-.standard-button {
+button {
     padding: .5rem 0 .5rem 0;
     border: none;
     border-radius: 8px;
-    background-color: $color--blue;
-    color: $color--white;
     text-align: center;
     font-size: 1rem;
     font-weight: bold;
+}
+.primay-button {
+    background-color: $color--blue;
+    color: $color--white;
 
     &:hover {
-        background-color: $color--white;
-        color: $color--blue;
+        background-color: $color--light-gray;
+        color: $color--black;
     }
+}
+.secondary-button {
+    background-color: $color--light-gray;
+    color: $color--black;
+
+    &:hover {
+        background-color: $color--blue;
+        color: $color--white;
+    }
+}
+.full {
+    width: 90%;
+}
+.half {
+    width: 42.5%;
 }
