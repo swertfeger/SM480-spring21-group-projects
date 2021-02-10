@@ -1,0 +1,46 @@
+.root {
+    font-size: 16px;
+}
+.pop-up{
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    width: 50%;
+}
+
+.pop-up-para{
+    margin: 10px;
+}
+
+.no-button{
+    background-color: #F2F2F2;
+    border: #F2F2F2 2px solid;
+    border-radius: 10px;
+    color: #000;
+    font-weight: bold;
+    margin: 10px;
+    padding: 0.5rem 1rem;
+
+    &:hover {
+        background-color: #3288ED;
+        color: #000;
+    }
+}
+.connect-button {
+    background-color: #3288ED;
+    border: #3288ED 2px solid;
+    border-radius: 10px;
+    color: #FFF;
+    font-weight: bold;
+    margin: 10px;
+    padding: 0.5rem 1rem;
+
+
+    &:hover {
+        background-color: #FFFFFF;
+        border: #FFF 2px solid;
+        color: #3288ED;
+    }
+}
