@@ -1,17 +1,55 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import OAuth2Login from "react-simple-oauth2-login";
+import React, { useState, useEffect } from "react";
 import "./Input.scss";
-import classnames from "classnames";
+import PropTypes from "prop-types";
+import Icon from "./Icon";
+function Input(props) {
+  const { inputValue, setInputValue } = useState("");
 
-function Input() {
+  useEffect(() => {
+    if (props.onUpdate) {
+      props.onUpdate(inputValue);
+    }
+  }, [inputValue, props]);
+
   return (
     <div className='input'>
-      <label htmlFor='' className='input__label' />
-      <input type='text' className='input__field' />
-      <div className='input__error'></div>
+      {!!props.label && (
+        <label htmlFor={props.id} className='input__label'>
+          {props.label}
+        </label>
+      )}
+
+      <input
+        type={props.type}
+        id={props.id}
+        className='input__field'
+        placeholder={props.placeholder}
+        onChange={(e) => setInputValue(e.target.value)}
+        value={inputValue}
+      />
+
+      {!!props.error && (
+        <div className='input__error'>
+          <Icon type='error' />
+          <div className='input__error-message'>{props.error}</div>
+        </div>
+      )}
     </div>
   );
 }
+
+Input.propTypes = {
+  type: PropTypes.string,
+  id: PropTypes.string,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  error: PropTypes.string,
+  onUpdate: PropTypes.func,
+};
+
+Input.defaultProps = {
+  type: "text",
+  placeholder: "Placeholder",
+};
 
 export default Input;
