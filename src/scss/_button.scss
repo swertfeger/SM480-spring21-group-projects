@@ -1,0 +1,15 @@
+.standard-button {
+    padding: .5rem 0 .5rem 0;
+    border: none;
+    border-radius: 8px;
+    background-color: $color--blue;
+    color: $color--white;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+
+    &:hover {
+        background-color: $color--white;
+        color: $color--blue;
+    }
+}
