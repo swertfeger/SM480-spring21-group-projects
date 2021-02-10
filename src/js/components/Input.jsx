@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Input.scss";
 import PropTypes from "prop-types";
 function Input(props) {
+  const { inputValue, setInputValue } = useState("");
+
+  useEffect(() => {
+    if (props.onUpdate) {
+      props.onUpdate(inputValue);
+    }
+  }, [inputValue, props]);
+
   return (
     <div className='input'>
       <label htmlFor='' className='input__label'>
@@ -11,7 +19,8 @@ function Input(props) {
         type='text'
         className='input__field'
         placeholder={props.placeholder}
-        value={props.value}
+        onChange={(e) => setInputValue(e.target.value)}
+        value={inputValue}
       />
       <div className='input__error'>
         <div className='input__error-icon'></div>
@@ -25,6 +34,7 @@ Input.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   error: PropTypes.string,
+  onUpdate: PropTypes.func,
 };
 
 export default Input;
