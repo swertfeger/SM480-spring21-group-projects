@@ -15,9 +15,12 @@ function LoginForm(props) {
   return (
     <div className="login-form">
       <Card>
-        <Button buttontype='secondary' full>
+        <Input label="Email" placeholder="your@email.com" />
+        <p>Can't log in?<a href="#">Recover Account</a></p>
+        <Button buttontype='primary' full>
           Continue
         </Button>
+        <p>Or log in with</p>
         <Button buttontype='secondary' icon='google' full>
           Continue with Google
         </Button>
@@ -30,8 +33,9 @@ function LoginForm(props) {
         <Button buttontype='secondary' icon='apple' full>
           Continue with Apple
         </Button>
+        <p>Don't have an account?<a href="#">Sign up</a></p>
 
-        <div>
+        {/* <div>
           <OAuth2Login
             authorizationUrl='https://accounts.spotify.com/authorize'
             responseType='token'
@@ -52,9 +56,7 @@ function LoginForm(props) {
           data-layout='rounded'
           data-auto-logout-link='false'
           data-use-continue-as='false'
-        />
-
-        <Button buttontype='primary'>Yes</Button>
+        /> */}
       </Card>
     </div>
   );
