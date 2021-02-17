@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import "./Button.scss";
 import classnames from "classnames";
 import Icon from "./Icon";
+import ConnectPopUp from "./ConnectPopUp";
 
 function Button(props) {
   return (
