@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import React from 'react';
 import ReactDOM from 'react-dom';
 import OAuth2Login from 'react-simple-oauth2-login';
@@ -14,6 +15,8 @@ function LoginForm(props) {
     return (
         <div className={"root"}>
 =======
+=======
+>>>>>>> Stashed changes
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import OAuth2Login from "react-simple-oauth2-login";
@@ -53,10 +56,19 @@ function LoginForm(props) {
       <Card>
 
         {/* Login w/ service name buttons */}
+<<<<<<< Updated upstream
         <Button buttontype='secondary' full>
           Continue
         </Button>
 
+=======
+        <Button buttontype='primary' full>
+          Continue
+        </Button>
+
+        <p> or login with</p>
+
+>>>>>>> Stashed changes
         {/* Google */}
         <Button buttontype='secondary' icon='google' full>
             {/* onclick event to make popup show w/ google */}
@@ -104,7 +116,11 @@ function LoginForm(props) {
                 data-auto-logout-link="false"
                 data-use-continue-as="false"
             />
+<<<<<<< Updated upstream
 
+=======
+            </Card>
+>>>>>>> Stashed changes
         </div>
     )
 }
