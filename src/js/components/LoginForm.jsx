@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React from 'react';
 import ReactDOM from 'react-dom';
 import OAuth2Login from 'react-simple-oauth2-login';
@@ -12,6 +13,74 @@ function LoginForm(props) {
     
     return (
         <div className={"root"}>
+=======
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import OAuth2Login from "react-simple-oauth2-login";
+import classnames from "classnames";
+import PropTypes from "prop-types";
+import "./LoginForm.scss";
+import Card from "./Card";
+import Input from "./Input";
+import Button from "./Button";
+import ConnectPopUp from "./ConnectPopUp";
+import { getAllByPlaceholderText } from "@testing-library/react";
+
+function LoginForm(props) {
+    // varibles for popups
+    const [showPopup, setShowPopup] = useState(false);
+    const [popupName, setNamePopup] = useState(false);
+
+    const onButtonClick = (popupName) => {
+        // makes popup show
+        setShowPopup(true);
+        // changes the service name
+        setNamePopup(popupName);
+    }      
+  const onSuccess = (response) => console.log("SUCCESS: ", response);
+  const onFailure = (response) => console.error("ERROR: ", response);
+ 
+
+
+  return (
+      <div className="login-form">
+      {/*  importing ConnectPopUp  */}
+      <ConnectPopUp 
+        show={showPopup} 
+        serviceName={ popupName }  
+        hidePopUp={() => setShowPopup(false)} 
+        onClose={() => setShowPopup(false)}/>
+      <Card>
+
+        {/* Login w/ service name buttons */}
+        <Button buttontype='secondary' full>
+          Continue
+        </Button>
+
+        {/* Google */}
+        <Button buttontype='secondary' icon='google' full>
+            {/* onclick event to make popup show w/ google */}
+            <a href="#" onClick={() => onButtonClick("Google")}>Continue with Google</a>
+        </Button>
+
+        {/* Twitter */}
+        <Button buttontype='secondary' icon='twitter' full>
+            {/* onclick event to make popup show w/ twittter */}
+            <a href="#" onClick={() => onButtonClick("Twitter")}>Continue with Twitter</a>
+        </Button>
+
+        {/* Facebook */}
+        <Button buttontype='secondary' icon='facebook' full>
+            {/* onclick event to make popup show w/ facebook */}
+            <a href="#" onClick={() => onButtonClick("Facebook")}>Continue with Facebook</a>
+        </Button>
+
+        {/* Apple */}
+        <Button buttontype='secondary' icon='apple' full>
+            {/* onclick event to make popup show w/ apple */}
+            <a href="#" onClick={() => onButtonClick("Apple")}>Continue with Apple</a>
+        </Button>
+>>>>>>> Stashed changes
 
             <div>
                 <OAuth2Login
