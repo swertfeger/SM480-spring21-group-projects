@@ -2,12 +2,8 @@ import React from 'react';
 import PropTypes from "prop-types";
 import ReactDOM from 'react-dom';
 import "./ConnectPopUp.scss";
-<<<<<<< Updated upstream
 import Icon from "./Icon";
 import LoginForm from "./LoginForm";
-=======
-import Button from "./Button"
->>>>>>> Stashed changes
 
 function ConnectPopUp(props) {
 
@@ -29,7 +25,6 @@ function ConnectPopUp(props) {
             <div className="pop-up-button">
 
                 {/* No button */}
-<<<<<<< Updated upstream
                 <button className="no-button">
                     <a href="#" onClick={props.hidePopUp}>
                         No, thanks
@@ -42,20 +37,6 @@ function ConnectPopUp(props) {
                         Connect
                     </a>
                 </button>
-=======
-                <Button buttontype='secondary'>
-                    <a href="#" onClick={props.hidePopUp}>
-                        No, thanks
-                    </a>
-                </Button>
-
-                {/* Connect button */}
-                <Button buttontype='secondary'>
-                    <a href="#" onClick={props.hidePopUp}>
-                        Connect
-                    </a>
-                </Button>
->>>>>>> Stashed changes
             </div>
         </div>
     )
