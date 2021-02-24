@@ -6,6 +6,14 @@ import classnames from "classnames";
 import Icon from "./Icon";
 
 function Button(props) {
+
+  const handleClick = (e) => {
+    console.log("Button -- handleClick: ", e);
+    if(props.onClick) {
+      props.onClick(props.id);
+    }
+  }
+
   return (
     <button
       className={classnames(
@@ -14,6 +22,7 @@ function Button(props) {
         { ["half"]: props.half },
         { ["full"]: props.full }
       )}
+      onClick={handleClick}
     >
       {props.icon && <Icon type={props.icon} />}
       {props.children}
@@ -22,10 +31,12 @@ function Button(props) {
 }
 
 Button.propTypes = {
+  id: PropTypes.string,
   buttontype: PropTypes.oneOf(["primary", "secondary"]),
   icon: PropTypes.string,
   half: PropTypes.bool,
   full: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 Button.defaultProps = {

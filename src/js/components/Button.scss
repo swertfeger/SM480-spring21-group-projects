@@ -19,7 +19,7 @@
     color: $color--white;
 
     &:hover {
-      background-color: $color--blue;
+      background-color: lighten($color--blue, 15%);
     }
   }
 
