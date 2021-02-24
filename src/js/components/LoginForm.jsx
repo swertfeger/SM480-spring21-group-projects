@@ -44,6 +44,9 @@ function LoginForm(props) {
           <Button buttontype='secondary' icon='apple' full>
             Continue with Apple
           </Button>
+          <Button buttontype='secondary' icon='pinterest' full>
+            Continue with Pinterest
+          </Button>
           <p>Don't have an account?<a href="#">Sign up</a></p>
         </Card>
         <ConnectPopUp show={showPopup} onClose={() => setShowPopup(false)}/>

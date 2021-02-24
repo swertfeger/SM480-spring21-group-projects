@@ -43,4 +43,8 @@
   svg {
     margin-right: 0.75rem;
   }
+
+  &:focus {
+    outline: none;
+  }
 }

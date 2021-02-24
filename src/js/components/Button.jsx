@@ -4,7 +4,6 @@ import ReactDOM from "react-dom";
 import "./Button.scss";
 import classnames from "classnames";
 import Icon from "./Icon";
-import ConnectPopUp from "./ConnectPopUp";
 
 function Button(props) {
   return (
@@ -25,6 +24,8 @@ function Button(props) {
 Button.propTypes = {
   buttontype: PropTypes.oneOf(["primary", "secondary"]),
   icon: PropTypes.string,
+  half: PropTypes.bool,
+  full: PropTypes.bool,
 };
 
 Button.defaultProps = {
