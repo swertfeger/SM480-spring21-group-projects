@@ -14,7 +14,6 @@ function App() {
   return (
     <div className='App'>
       <LoginForm />
-      <a onClick={onButtonClick}>POPUP</a>
       <ConnectPopUp show={showPopup} onClose={() => setShowPopup(false)}/>
     </div>
   );
