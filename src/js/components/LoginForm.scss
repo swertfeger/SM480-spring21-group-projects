@@ -1,26 +1,7 @@
-.root {
-    font-size: 16px;
-
-    
-
-    .fbButton {
-        margin-top: 0.25em;
-
-        
-    }
-}
-
-.oAuthLogin {
-    margin-top: 0.25em;
-    
-    button {
-        padding: 0.5rem 1rem;
-        background-color: #336699;
-        color: #FFF;
-
-        &:hover {
-            background-color: #FFFFFF;
-            color: #336699;
-        }
-    }
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
 }

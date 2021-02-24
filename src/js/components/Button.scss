@@ -1,18 +1,14 @@
 @import "../../scss/colors";
 
-.root{
-  
-}
-
 .button {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 6px 0;
   padding: 0 1rem;
+  margin: 0.75rem 0;
   border: none;
   border-radius: 0.5rem;
-  
+
   font-weight: 600;
   line-height: 3rem;
 
@@ -23,7 +19,7 @@
     color: $color--white;
 
     &:hover {
-      background-color: $color--blue;
+      background-color: lighten($color--blue, 15%);
     }
   }
 
@@ -32,7 +28,7 @@
     color: $color--black;
 
     &:hover {
-      background-color: $color--light-gray;
+      background-color: $color--gray;
     }
   }
 
@@ -47,9 +43,8 @@
   svg {
     margin-right: 0.75rem;
   }
-}
 
-a:link, a:visited {
-  color: $color--black;
-  text-decoration: none;
+  &:focus {
+    outline: none;
+  }
 }

@@ -1,7 +1,6 @@
-
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import OAuth2Login from "react-simple-oauth2-login";
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import OAuth2Login from 'react-simple-oauth2-login';
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import "./LoginForm.scss";
@@ -15,87 +14,106 @@ function LoginForm(props) {
     // varibles for popups
     const [showPopup, setShowPopup] = useState(false);
     const [popupName, setNamePopup] = useState(false);
+    const onSuccess = (response) => console.log("SUCCESS: ", response);
+    const onFailure = (response) => console.error("ERROR: ", response);
 
-    const onButtonClick = (popupName) => {
-        // makes popup show
-        setShowPopup(true);
-        // changes the service name
-        setNamePopup(popupName);
-    }      
-  const onSuccess = (response) => console.log("SUCCESS: ", response);
-  const onFailure = (response) => console.error("ERROR: ", response);
- 
+    const [showPass, setShowPass] = useState(false);
 
+    const onContinueClick = () => {
+        setShowPass(true);
+    }
 
-  return (
-      <div className="login-form">
-      {/*  importing ConnectPopUp  */}
-      <ConnectPopUp 
-        show={showPopup} 
-        serviceName={ popupName }  
-        hidePopUp={() => setShowPopup(false)} 
-        onClose={() => setShowPopup(false)}/>
-      <Card>
+    const onButtonClick = (popupId) => {
+        console.log(popupId);
+        switch(popupId) {
+            case "apple":
+                console.log("IM APPLE");
+                setShowPopup(true);
+                setNamePopup("WHAT THE WHAT APPLE????");
+                return;
+            default:
+                console.log("HUH?");
+                setShowPopup(true);
+                // changes the service name
+                setNamePopup(popupId);
+        }
 
-        {/* Login w/ service name buttons */}
+    }
 
-        <Button buttontype='primary' full>
-          Continue
-        </Button>
-
-        <p> or login with</p>
-        {/* Google */}
-        <Button buttontype='secondary' icon='google' full>
-            {/* onclick event to make popup show w/ google */}
-            <a href="#" onClick={() => onButtonClick("Google")}>Continue with Google</a>
-        </Button>
-
-        {/* Twitter */}
-        <Button buttontype='secondary' icon='twitter' full>
-            {/* onclick event to make popup show w/ twittter */}
-            <a href="#" onClick={() => onButtonClick("Twitter")}>Continue with Twitter</a>
-        </Button>
-
-        {/* Facebook */}
-        <Button buttontype='secondary' icon='facebook' full>
-            {/* onclick event to make popup show w/ facebook */}
-            <a href="#" onClick={() => onButtonClick("Facebook")}>Continue with Facebook</a>
-        </Button>
-
-        {/* Apple */}
-        <Button buttontype='secondary' icon='apple' full>
-            {/* onclick event to make popup show w/ apple */}
-            <a href="#" onClick={() => onButtonClick("Apple")}>Continue with Apple</a>
-        </Button>
-            <div>
-                <OAuth2Login
-                    authorizationUrl="https://accounts.spotify.com/authorize"
-                    responseType="token"
-                    clientId="9822046hvr4lnhi7g07grihpefahy5jb"
-                    redirectUri="http://localhost:3000/oauth-callback"
-                    onSuccess={onSuccess}
-                    onFailure={onFailure}
-                    buttonText={props.loginBtnText}
-                    className={"oAuthLogin"}
-                />
-            </div>
-
-            <div 
-                className={classnames("fb-login-button", "fbButton")}
-                data-width=""
-                data-size="large" 
-                data-button-type="login_with"
-                data-layout="rounded"
-                data-auto-logout-link="false"
-                data-use-continue-as="false"
-            />
+    if (setShowPass) {
+        return (
+          <div className="login-form">
+              <ConnectPopUp
+                  show={showPopup}
+                  serviceName={ popupName }
+                  hidePopUp={() => setShowPopup(false)}
+                  onClose={() => setShowPopup(false)}
+              />
+            <Card>
+              <Input label="Email" placeholder="your@email.com" />
+              <p>Can't log in?<a href="#">Recover Account</a></p>
+              <Button buttontype='primary' full onClick={onContinueClick}>
+                Continue
+              </Button>
+              <p>Or log in with</p>
+              <Button buttontype='secondary' icon='google' full onClick={() => onButtonClick("Google")}>
+                Continue with Google
+              </Button>
+              <Button buttontype='secondary' icon='twitter' full onClick={() => onButtonClick("Twitter")}>
+                Continue with Twitter
+              </Button>
+              <Button buttontype='secondary' icon='facebook' full onClick={() => onButtonClick("Facebook")}>
+                Continue with Facebook
+              </Button>
+              <Button id="apple" buttontype='secondary' icon='apple' full onClick={onButtonClick}>
+                Continue with Apple
+              </Button>
+              <Button buttontype='secondary' icon='pinterest' full onClick={() => onButtonClick("Pinterest")}>
+                Continue with Pinterest
+              </Button>
+              <p>Don't have an account?<a href="#">Sign up</a></p>
             </Card>
+          </div>
+        );
+    }
+
+    return (
+        <div className="login-form">
+          <Card>
+            <Button buttontype='secondary' icon='arrow-left'/>
+            <Input label="Password" placeholder=" " />
+            <p>Forgot password?<a href="#">Recover password</a></p>
+          </Card>
         </div>
     )
+
+        {/* <div>
+          <OAuth2Login
+            authorizationUrl='https://accounts.spotify.com/authorize'
+            responseType='token'
+            clientId='9822046hvr4lnhi7g07grihpefahy5jb'
+            redirectUri='http://localhost:3000/oauth-callback'
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+            buttonText={props.loginBtnText}
+            className={"oAuthLogin"}
+          />
+        </div>
+
+        <div
+          className={classnames("fb-login-button", "fbButton")}
+          data-width=''
+          data-size='large'
+          data-button-type='login_with'
+          data-layout='rounded'
+          data-auto-logout-link='false'
+          data-use-continue-as='false'
+        /> */}
 }
+
 
 LoginForm.propTypes = {
     loginBtnText: PropTypes.string.isRequired,
-}
+};
 
 export default LoginForm;
