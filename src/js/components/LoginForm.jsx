@@ -17,15 +17,18 @@ function LoginForm(props) {
     console.log("onButtonClick");
     setShowPopup(true);
   }
-  var password = false;
+  const [showPass, setShowPass] = useState(false);
+  const onContinueClick = () => {
+    setShowPass(true);
+  }
 
-  if (password == false) {
+  if (setShowPass) {
     return (
       <div className="login-form">
         <Card>
           <Input label="Email" placeholder="your@email.com" />
           <p>Can't log in?<a href="#">Recover Account</a></p>
-          <Button buttontype='primary' full onClick={password=true}>
+          <Button buttontype='primary' full onClick={onContinueClick}>
             Continue
           </Button>
           <p>Or log in with</p>
@@ -80,6 +83,7 @@ function LoginForm(props) {
           data-use-continue-as='false'
         /> */
 }
+
 
 LoginForm.propTypes = {
   loginBtnText: PropTypes.string.isRequired,
