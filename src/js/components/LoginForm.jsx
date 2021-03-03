@@ -40,7 +40,11 @@ function LoginForm(props) {
 
     }
 
-    if (setShowPass) {
+    const handleLogin = () => {
+        props.onLogin();
+    }
+
+    if (!showPass) {
         return (
           <div className="login-form">
               <ConnectPopUp
@@ -83,6 +87,9 @@ function LoginForm(props) {
             <Button buttontype='secondary' icon='arrow-left'/>
             <Input label="Password" placeholder=" " />
             <p>Forgot password?<a href="#">Recover password</a></p>
+            <Button buttontype='primary' full onClick={handleLogin}>
+              Submit
+            </Button>
           </Card>
         </div>
     )
@@ -114,6 +121,7 @@ function LoginForm(props) {
 
 LoginForm.propTypes = {
     loginBtnText: PropTypes.string.isRequired,
+    onLogin: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
