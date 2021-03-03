@@ -2,9 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
 const app = express();
-const {Router} = require("express");
+const router = express.Router();
 
 app.use(express.static(path.join(__dirname, 'static')));
+
+router.use(require("./server/routes/api_routes"));
+app.use('/api/v1', router);
 
 app.get('/twitter-search', function (req, res) {
     return res.send('pong');
