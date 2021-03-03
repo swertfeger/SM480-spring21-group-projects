@@ -1,28 +1,15 @@
 import React, {useState, useEffect} from "react";
-import request from "../utils/request";
-import { twitterSearchURL } from "../constants/TwitterAPIs";
-
+import * as TwitterAPI from "../utils/TwitterAPI";
 function TwitterSearch(props) {
 
     const [twitterData, setTwitterData] = useState(null);
 
-    // useEffect(() => {
-    //     setTwitterData(searchTwitter());
-    // }, []);
+    useEffect(() => {
+        setTwitterData(searchTwitter("suess"));
+    }, []);
 
-    const searchTwitter = async () => {
-        const searchQuery = "seuss";
-        return await request()
-            .get(`${twitterSearchURL}${searchQuery}`)
-            .send()
-            .then((res) => {
-                if (res.body) {
-                   console.log(res.body);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    const searchTwitter = (query) => {
+        return TwitterAPI.searchTweets(query);
     }
 
     return (
