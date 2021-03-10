@@ -26,6 +26,16 @@ function TwitterSearch(props) {
   }));
   console.log(top10Retweets);
 
+  console.log("topResults", topResults);
+  console.log(topResults.length);
+
+  console.log("TWITTER: ", twitterData);
+  const mostRetweeted = twitterData ? orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"]) : [];
+
+//   return (
+//       <Card>
+//       </Card>
+
   return (
     <div className='layout'>
       <nav className='nav'>
@@ -54,6 +64,12 @@ function TwitterSearch(props) {
             <div className='tweet'>
               <div className='tweet__avatar'></div>
               <div className='tweet__content'>
+                {map(mostRetweeted.slice(0,10), tweet => (
+                    <div>
+                        <p>{tweet.text}</p>
+                        <p>Retweets: {tweet.public_metrics.retweet_count}</p>
+                    </div>
+                ))}
                 <div className='tweet__author'>
                   <div className='tweet__name'>Twitter Name</div>
                   <div className='tweet__username'>@TwitterHandle</div>
