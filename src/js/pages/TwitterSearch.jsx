@@ -6,6 +6,10 @@ import Card from "../components/Card";
 import "./TwitterSearch.scss";
 import Icon from "../components/Icon";
 
+import VerticalChart from "../components/VerticalChart";
+
+
+
 function TwitterSearch(props) {
   const [twitterData, setTwitterData] = useState([]);
 
@@ -127,7 +131,15 @@ function TwitterSearch(props) {
 
         <section className='section section--graph'>
           <h1 className='section__heading'>Graph</h1>
+<<<<<<< Updated upstream
           <div className='section__content'>{/* CHARTS GO HERE */}</div>
+=======
+          <div className='section__content'>
+            {/* CHARTS GO HERE */}
+            <VerticalChart />
+
+          </div>
+>>>>>>> Stashed changes
         </section>
       </main>
     </div>
