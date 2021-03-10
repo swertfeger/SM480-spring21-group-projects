@@ -77,7 +77,6 @@ function TwitterSearch(props) {
         <section className='section section--graph'>
           <h1 className='section__heading'>Graph</h1>
           <div className='section__content'>
-            {/* CHARTS GO HERE */}
             <VerticalChart />
             <LineChart />
             <AreaChart />
