@@ -65,14 +65,21 @@ function TwitterSearch(props) {
           <div className='section__content'>
             {map(mostRetweeted.slice(0, 10), (tweet) => (
               <div className='tweet'>
-                <div className='tweet__avatar'></div>
+                <div
+                  className='tweet__avatar'
+                  style={{ backgroundImage: `url(${tweet.user.profile_image_url})` }}
+                ></div>
                 <div className='tweet__content'>
                   <div className='tweet__author'>
-                    <div className='tweet__name'>Twitter Name</div>
-                    <div className='tweet__username'>@TwitterHandle</div>
+                    <div className='tweet__name'>{tweet.user.name}</div>
+                    <div className='tweet__username'>
+                      @{tweet.user.username}
+                    </div>
                   </div>
                   <div className='tweet__message'>{tweet.text}</div>
-                  <div className='tweet__retweets'>{tweet.public_metrics.retweet_count}</div>
+                  <div className='tweet__retweets'>
+                    {tweet.public_metrics.retweet_count}
+                  </div>
                   <div className='tweet__images'></div>
                 </div>
               </div>
@@ -82,7 +89,7 @@ function TwitterSearch(props) {
 
         <section className='section section--graph'>
           <h1 className='section__heading'>Graph</h1>
-          <div className='section__content'></div>
+          <div className='section__content'>{/* CHARTS GO HERE */}</div>
         </section>
       </main>
     </div>
