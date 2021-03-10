@@ -1,0 +1,99 @@
+@import "../../scss/colors";
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex: 0 0 4.5rem;
+  background-color: $color--white;
+  padding: 0 2rem;
+  border-bottom: 1px solid $color--gray;
+
+  &__logo {
+    margin-right: 2rem;
+  }
+
+  &__search {
+    width: 640px;
+  }
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 4.5rem);
+  padding: 2rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &--tweets {
+    flex: 0 0 40%;
+    margin-right: 2rem;
+  }
+
+  &--graph {
+    flex: 1;
+  }
+
+  &__heading {
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  &__content {
+    height: 100%;
+    border: 1px solid $color--gray;
+    border-radius: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+.tweet {
+  display: flex;
+  padding: 1rem;
+  border-bottom: 1px solid $color--gray;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &__avatar {
+    flex: 0 0 3rem;
+    height: 3rem;
+    margin-right: 1rem;
+    border-radius: 1.5rem;
+    background-color: $color--light-gray;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  &__content {
+    line-height: 22px;
+  }
+
+  &__author {
+    display: flex;
+    margin-bottom: 0.25rem;
+  }
+
+  &__name {
+    margin-right: 0.5rem;
+    font-weight: 700;
+  }
+
+  &__username {
+    color: $color--dark-gray;
+  }
+}

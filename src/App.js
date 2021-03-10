@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import LoginForm from "./js/components/LoginForm";
-
+import TwitterSearch from "./js/pages/TwitterSearch";
 function App(props) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     return (
@@ -11,9 +11,7 @@ function App(props) {
                 <BrowserRouter basename={""}>
                     <Switch>
                         <Route path="/twitter">
-                            <Link to={"/twitter"}>TWITTER SEARCH</Link>
-                            <Link to={"/facebook"}>FACEBOOK SEARCH</Link>
-                            <div>TWITTER PAGE</div>
+                            <TwitterSearch />
                         </Route>
                         <Route path="/facebook">
                             <Link to={"/twitter"}>TWITTER SEARCH</Link>
