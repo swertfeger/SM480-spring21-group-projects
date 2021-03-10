@@ -41,7 +41,7 @@ async function getRequest(query) {
         "query": query,
         "tweet.fields": "author_id,text,created_at,public_metrics,attachments", // Edit optional query parameters here
         "expansions": "author_id",
-        "user.fields": "name,profile_image_url,username",
+        "user.fields": "profile_image_url",
         "max_results": "100"
     }
 
