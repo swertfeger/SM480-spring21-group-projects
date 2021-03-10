@@ -6,29 +6,56 @@ import Card from "../components/Card";
 import "./TwitterSearch.scss";
 
 function TwitterSearch(props) {
-  const [twitterData, setTwitterData] = useState({});
+  const [twitterData, setTwitterData] = useState([]);
 
   useEffect(() => {
-    setTwitterData(searchTwitter("suess"));
+    searchTwitter("suess");
   }, []);
 
-  const searchTwitter = (query) => {
-    return TwitterAPI.searchTweets(query);
-  };
+  const searchTwitter = async (query) => {
+    const results = await TwitterAPI.searchTweets(query);
+    setTwitterData(results);
+  }
+
+  if(!twitterData.length) {
+    return <div>LOADING</div>
+  }
+
+  // EXAMPLE CHART DATA:
+  // data: {
+  //   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  //       datasets: [{
+  //     label: '# of Votes',
+  //     data: [12, 19, 3, 5, 2, 3],
+  //     backgroundColor: [
+  //       'rgba(255, 99, 132, 0.2)',
+  //       'rgba(54, 162, 235, 0.2)',
+  //       'rgba(255, 206, 86, 0.2)',
+  //       'rgba(75, 192, 192, 0.2)',
+  //       'rgba(153, 102, 255, 0.2)',
+  //       'rgba(255, 159, 64, 0.2)'
+  //     ],
+  //     borderColor: [
+  //       'rgba(255, 99, 132, 1)',
+  //       'rgba(54, 162, 235, 1)',
+  //       'rgba(255, 206, 86, 1)',
+  //       'rgba(75, 192, 192, 1)',
+  //       'rgba(153, 102, 255, 1)',
+  //       'rgba(255, 159, 64, 1)'
+  //     ],
+  //     borderWidth: 1
+  //   }]
+  // },
 
   console.log(twitterData);
   const mostRetweeted = twitterData
-    ? orderBy(twitterData.data, ["public_metrics.retweet_count"], ["desc"])
+    ? orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"])
     : [];
   const top10Retweets = map(mostRetweeted.slice(0, 10), (tweet) => ({
     text: tweet.text,
     id: tweet.id,
     count: tweet.public_metrics.retweet_count,
   }));
-
-  if(!!twitterData.length) {
-        return <div>LOADING</div>
-  }
   const retweetResults = orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"]);
   const topResults = map(retweetResults.slice(0,10), tweet => ({
       text:tweet.text,
@@ -91,7 +118,9 @@ function TwitterSearch(props) {
 
         <section className='section section--graph'>
           <h1 className='section__heading'>Graph</h1>
-          <div className='section__content'></div>
+          <div className='section__content'>
+            {/* CHARTS GO HERE */}
+          </div>
         </section>
       </main>
     </div>
