@@ -126,15 +126,9 @@ function TwitterSearch(props) {
 
         <section className='section section--graph'>
           <h1 className='section__heading'>Graph</h1>
-<<<<<<< Updated upstream
-          <div className='section__content'>{/* CHARTS GO HERE */}</div>
-=======
           <div className='section__content'>
-            {/* CHARTS GO HERE */}
             <VerticalChart />
-
           </div>
->>>>>>> Stashed changes
         </section>
       </main>
     </div>
