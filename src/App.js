@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import LoginForm from "./js/components/LoginForm";
 import TwitterSearch from "./js/pages/TwitterSearch";
 function App(props) {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
     return (
         <div className='App'>
 
