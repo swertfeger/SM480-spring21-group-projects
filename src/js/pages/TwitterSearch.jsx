@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import * as TwitterAPI from "../utils/TwitterAPI";
 import { map, orderBy } from "lodash";
 import Input from "../components/Input";
+import Card from "../components/Card";
 import "./TwitterSearch.scss";
 
 function TwitterSearch(props) {
-  const [twitterData, setTwitterData] = useState(null);
+  const [twitterData, setTwitterData] = useState({});
 
   useEffect(() => {
     setTwitterData(searchTwitter("suess"));
@@ -24,10 +25,16 @@ function TwitterSearch(props) {
     id: tweet.id,
     count: tweet.public_metrics.retweet_count,
   }));
+
+  if(!!twitterData.length) {
+        return <div>LOADING</div>
+  }
+  const retweetResults = orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"]);
   const topResults = map(retweetResults.slice(0,10), tweet => ({
       text:tweet.text,
       ...tweet.public_metrics
   }));
+
   console.log(top10Retweets);
 
   console.log("topResults", topResults);
@@ -64,10 +71,10 @@ function TwitterSearch(props) {
               <div className='tweet__avatar'></div>
               <div className='tweet__content'>
                 {map(mostRetweeted.slice(0,10), tweet => (
-                    <div>
+                    <Card>
                         <p>{tweet.text}</p>
                         <p>Retweets: {tweet.public_metrics.retweet_count}</p>
-                    </div>
+                    </Card>
                 ))}
                 <div className='tweet__author'>
                   <div className='tweet__name'>Twitter Name</div>
