@@ -15,39 +15,26 @@ function TwitterSearch(props) {
   const searchTwitter = async (query) => {
     const results = await TwitterAPI.searchTweets(query);
     setTwitterData(results);
+  };
+
+  if (!twitterData.length) {
+    return <div>LOADING</div>;
   }
 
-  if(!twitterData.length) {
-    return <div>LOADING</div>
-  }
+  const retweetResults = orderBy(
+    twitterData,
+    ["public_metrics.retweet_count"],
+    ["desc"]
+  );
+  const topResults = map(retweetResults.slice(0, 10), (tweet) => ({
+    text: tweet.text,
+    ...tweet.public_metrics,
+  }));
 
-  // EXAMPLE CHART DATA:
-  // data: {
-  //   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-  //       datasets: [{
-  //     label: '# of Votes',
-  //     data: [12, 19, 3, 5, 2, 3],
-  //     backgroundColor: [
-  //       'rgba(255, 99, 132, 0.2)',
-  //       'rgba(54, 162, 235, 0.2)',
-  //       'rgba(255, 206, 86, 0.2)',
-  //       'rgba(75, 192, 192, 0.2)',
-  //       'rgba(153, 102, 255, 0.2)',
-  //       'rgba(255, 159, 64, 0.2)'
-  //     ],
-  //     borderColor: [
-  //       'rgba(255, 99, 132, 1)',
-  //       'rgba(54, 162, 235, 1)',
-  //       'rgba(255, 206, 86, 1)',
-  //       'rgba(75, 192, 192, 1)',
-  //       'rgba(153, 102, 255, 1)',
-  //       'rgba(255, 159, 64, 1)'
-  //     ],
-  //     borderWidth: 1
-  //   }]
-  // },
+  console.log("topResults", topResults);
+  console.log(topResults.length);
 
-  console.log(twitterData);
+  console.log("TWITTER: ", twitterData);
   const mostRetweeted = twitterData
     ? orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"])
     : [];
@@ -94,30 +81,33 @@ function TwitterSearch(props) {
         <section className='section section--tweets'>
           <h1 className='section__heading'>Tweets</h1>
           <div className='section__content'>
-            {map(twitterData.slice(0,10), tweet => (
-                <div className='tweet'>
-                <div className='tweet__avatar'></div>
+            {map(mostRetweeted.slice(0, 10), (tweet) => (
+              <div className='tweet'>
+                <div
+                  className='tweet__avatar'
+                  style={{ backgroundImage: `url(${tweet.user.profile_image_url})` }}
+                ></div>
                 <div className='tweet__content'>
-                    <div className='tweet__author'>
-                        <div className='tweet__name'>{tweet.user.name}</div>
-                        <div className='tweet__username'>@{tweet.user.username}</div>
+                  <div className='tweet__author'>
+                    <div className='tweet__name'>{tweet.user.name}</div>
+                    <div className='tweet__username'>
+                      @{tweet.user.username}
                     </div>
-                    <div className='tweet__message'>
-                        {tweet.text}
-                    </div>
-                    <div className='tweet__images'></div>
-                    <p>Retweets: {tweet.public_metrics.retweet_count}, Likes: {tweet.public_metrics.like_count}, Replies: {tweet.public_metrics.reply_count}</p>
+                  </div>
+                  <div className='tweet__message'>{tweet.text}</div>
+                  <div className='tweet__retweets'>
+                    {tweet.public_metrics.retweet_count}
+                  </div>
+                  <div className='tweet__images'></div>
                 </div>
-                </div>
+              </div>
             ))}
           </div>
         </section>
 
         <section className='section section--graph'>
           <h1 className='section__heading'>Graph</h1>
-          <div className='section__content'>
-            {/* CHARTS GO HERE */}
-          </div>
+          <div className='section__content'>{/* CHARTS GO HERE */}</div>
         </section>
       </main>
     </div>
