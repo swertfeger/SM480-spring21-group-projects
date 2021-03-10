@@ -5,15 +5,21 @@ import Input from "../components/Input";
 import "./TwitterSearch.scss";
 
 function TwitterSearch(props) {
-  const [twitterData, setTwitterData] = useState(null);
+  const [twitterData, setTwitterData] = useState([]);
 
   useEffect(() => {
-    setTwitterData(searchTwitter("suess"));
+    searchTwitter("suess");
   }, []);
 
-  const searchTwitter = (query) => {
-    return TwitterAPI.searchTweets(query);
-  };
+  const searchTwitter = async (query) => {
+    const results = await TwitterAPI.searchTweets(query);
+    setTwitterData(results);
+  }
+
+  if(!twitterData.length) {
+    return <div>LOADING</div>
+  }
+
   // EXAMPLE CHART DATA:
   // data: {
   //   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
