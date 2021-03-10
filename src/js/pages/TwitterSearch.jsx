@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import * as TwitterAPI from "../utils/TwitterAPI";
 import { map, orderBy } from "lodash";
 import Input from "../components/Input";
-import Card from "../components/Card";
 import "./TwitterSearch.scss";
 import Icon from "../components/Icon";
 
@@ -27,6 +26,7 @@ function TwitterSearch(props) {
     ["public_metrics.retweet_count"],
     ["desc"]
   );
+
   const topResults = map(retweetResults.slice(0, 10), (tweet) => ({
     text: tweet.text,
     ...tweet.public_metrics,
@@ -43,11 +43,6 @@ function TwitterSearch(props) {
     text: tweet.text,
     id: tweet.id,
     count: tweet.public_metrics.retweet_count,
-  }));
-  const retweetResults = orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"]);
-  const topResults = map(retweetResults.slice(0,10), tweet => ({
-      text:tweet.text,
-      ...tweet.public_metrics
   }));
 
   console.log(top10Retweets);
@@ -99,19 +94,19 @@ function TwitterSearch(props) {
                   </div>
                   <div className='tweet__message'>{tweet.text}</div>
                   <div className='tweet__stats'>
-                    <div className="tweet__stat">
+                    <div className='tweet__stat'>
                       <Icon type='reply' />
                       <div className='tweet__stat-count'>
                         {tweet.public_metrics.reply_count}
                       </div>
                     </div>
-                    <div className="tweet__stat">
+                    <div className='tweet__stat'>
                       <Icon type='retweet' />
                       <div className='tweet__stat-count'>
                         {tweet.public_metrics.retweet_count}
                       </div>
                     </div>
-                    <div className="tweet__stat">
+                    <div className='tweet__stat'>
                       <Icon type='like' />
                       <div className='tweet__stat-count'>
                         {tweet.public_metrics.like_count}
