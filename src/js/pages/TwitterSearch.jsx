@@ -3,12 +3,13 @@ import * as TwitterAPI from "../utils/TwitterAPI";
 import { map, orderBy } from "lodash";
 import Input from "../components/Input";
 import "./TwitterSearch.scss";
+import Icon from "../components/Icon";
 
 function TwitterSearch(props) {
   const [twitterData, setTwitterData] = useState([]);
 
   useEffect(() => {
-    searchTwitter("suess");
+    searchTwitter("Biden");
   }, []);
 
   const searchTwitter = async (query) => {
@@ -67,7 +68,9 @@ function TwitterSearch(props) {
               <div className='tweet'>
                 <div
                   className='tweet__avatar'
-                  style={{ backgroundImage: `url(${tweet.user.profile_image_url})` }}
+                  style={{
+                    backgroundImage: `url(${tweet.user.profile_image_url})`,
+                  }}
                 ></div>
                 <div className='tweet__content'>
                   <div className='tweet__author'>
@@ -77,8 +80,25 @@ function TwitterSearch(props) {
                     </div>
                   </div>
                   <div className='tweet__message'>{tweet.text}</div>
-                  <div className='tweet__retweets'>
-                    {tweet.public_metrics.retweet_count}
+                  <div className='tweet__stats'>
+                    <div className="tweet__stat">
+                      <Icon type='reply' />
+                      <div className='tweet__stat-count'>
+                        {tweet.public_metrics.reply_count}
+                      </div>
+                    </div>
+                    <div className="tweet__stat">
+                      <Icon type='retweet' />
+                      <div className='tweet__stat-count'>
+                        {tweet.public_metrics.retweet_count}
+                      </div>
+                    </div>
+                    <div className="tweet__stat">
+                      <Icon type='like' />
+                      <div className='tweet__stat-count'>
+                        {tweet.public_metrics.like_count}
+                      </div>
+                    </div>
                   </div>
                   <div className='tweet__images'></div>
                 </div>
