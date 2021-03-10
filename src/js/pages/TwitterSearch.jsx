@@ -30,11 +30,6 @@ function TwitterSearch(props) {
   console.log(topResults.length);
 
   console.log("TWITTER: ", twitterData);
-  const mostRetweeted = twitterData ? orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"]) : [];
-
-//   return (
-//       <Card>
-//       </Card>
 
   return (
     <div className='layout'>
