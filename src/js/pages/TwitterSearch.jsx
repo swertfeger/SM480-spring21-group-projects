@@ -24,6 +24,10 @@ function TwitterSearch(props) {
     id: tweet.id,
     count: tweet.public_metrics.retweet_count,
   }));
+  const topResults = map(retweetResults.slice(0,10), tweet => ({
+      text:tweet.text,
+      ...tweet.public_metrics
+  }));
   console.log(top10Retweets);
 
   console.log("topResults", topResults);
