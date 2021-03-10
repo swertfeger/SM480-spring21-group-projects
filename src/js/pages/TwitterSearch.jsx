@@ -2,44 +2,27 @@ import React, { useState, useEffect } from "react";
 import * as TwitterAPI from "../utils/TwitterAPI";
 import { map, orderBy } from "lodash";
 import Input from "../components/Input";
-import Card from "../components/Card";
 import "./TwitterSearch.scss";
-import Icon from "../components/Icon";
 
 import VerticalChart from "../components/VerticalChart";
+import LineChart from "../components/LineChart";
+import AreaChart from "../components/AreaChart";
+import PieChart from "../components/PieChart";
 
 
 
 function TwitterSearch(props) {
-  const [twitterData, setTwitterData] = useState([]);
+  const [twitterData, setTwitterData] = useState(null);
 
   useEffect(() => {
-    searchTwitter("Biden");
+    setTwitterData(searchTwitter("suess"));
   }, []);
 
-  const searchTwitter = async (query) => {
-    const results = await TwitterAPI.searchTweets(query);
-    setTwitterData(results);
+  const searchTwitter = (query) => {
+    return TwitterAPI.searchTweets(query);
   };
 
-  if (!twitterData.length) {
-    return <div>LOADING</div>;
-  }
-
-  const retweetResults = orderBy(
-    twitterData,
-    ["public_metrics.retweet_count"],
-    ["desc"]
-  );
-  const topResults = map(retweetResults.slice(0, 10), (tweet) => ({
-    text: tweet.text,
-    ...tweet.public_metrics,
-  }));
-
-  console.log("topResults", topResults);
-  console.log(topResults.length);
-
-  console.log("TWITTER: ", twitterData);
+  console.log(twitterData);
   const mostRetweeted = twitterData
     ? orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"])
     : [];
@@ -48,18 +31,7 @@ function TwitterSearch(props) {
     id: tweet.id,
     count: tweet.public_metrics.retweet_count,
   }));
-  const retweetResults = orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"]);
-  const topResults = map(retweetResults.slice(0,10), tweet => ({
-      text:tweet.text,
-      ...tweet.public_metrics
-  }));
-
   console.log(top10Retweets);
-
-  console.log("topResults", topResults);
-  console.log(topResults.length);
-
-  console.log("TWITTER: ", twitterData);
 
   return (
     <div className='layout'>
@@ -86,60 +58,32 @@ function TwitterSearch(props) {
         <section className='section section--tweets'>
           <h1 className='section__heading'>Tweets</h1>
           <div className='section__content'>
-            {map(mostRetweeted.slice(0, 10), (tweet) => (
-              <div className='tweet'>
-                <div
-                  className='tweet__avatar'
-                  style={{
-                    backgroundImage: `url(${tweet.user.profile_image_url})`,
-                  }}
-                ></div>
-                <div className='tweet__content'>
-                  <div className='tweet__author'>
-                    <div className='tweet__name'>{tweet.user.name}</div>
-                    <div className='tweet__username'>
-                      @{tweet.user.username}
-                    </div>
-                  </div>
-                  <div className='tweet__message'>{tweet.text}</div>
-                  <div className='tweet__stats'>
-                    <div className="tweet__stat">
-                      <Icon type='reply' />
-                      <div className='tweet__stat-count'>
-                        {tweet.public_metrics.reply_count}
-                      </div>
-                    </div>
-                    <div className="tweet__stat">
-                      <Icon type='retweet' />
-                      <div className='tweet__stat-count'>
-                        {tweet.public_metrics.retweet_count}
-                      </div>
-                    </div>
-                    <div className="tweet__stat">
-                      <Icon type='like' />
-                      <div className='tweet__stat-count'>
-                        {tweet.public_metrics.like_count}
-                      </div>
-                    </div>
-                  </div>
-                  <div className='tweet__images'></div>
+            <div className='tweet'>
+              <div className='tweet__avatar'></div>
+              <div className='tweet__content'>
+                <div className='tweet__author'>
+                  <div className='tweet__name'>Twitter Name</div>
+                  <div className='tweet__username'>@TwitterHandle</div>
                 </div>
+                <div className='tweet__message'>
+                  Somebody tweeted some words, and I guess and people liked it.
+                </div>
+                <div className='tweet__images'></div>
               </div>
-            ))}
+            </div>
           </div>
         </section>
 
         <section className='section section--graph'>
           <h1 className='section__heading'>Graph</h1>
-<<<<<<< Updated upstream
-          <div className='section__content'>{/* CHARTS GO HERE */}</div>
-=======
           <div className='section__content'>
             {/* CHARTS GO HERE */}
             <VerticalChart />
+            <LineChart />
+            <AreaChart />
+            <PieChart />
 
           </div>
->>>>>>> Stashed changes
         </section>
       </main>
     </div>

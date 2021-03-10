@@ -15,7 +15,7 @@ const data = {
     ]
 };
 
-export default class VerticalChart extends Component {
+export default class PieChart extends Component {
     render( ){ 
         return (
             <div>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TwitterSeach from "../pages/TwitterSearch"
 
-import { Area } from 'react-chartjs-2';
+import { Radar } from 'react-chartjs-2';
 
 const data = {
     labels: ['Tweet'],
@@ -15,14 +15,14 @@ const data = {
     ]
 };
 
-export default class VerticalChart extends Component {
+export default class AreaChart extends Component {
     render( ){ 
         return (
             <div>
-          <Area
+          <Radar
               data={data}
               options={{ maintainAspectRatio: false }}
-              tool={'radarArea'}
+              type={'radarArea'}
           />
           </div>
         )
