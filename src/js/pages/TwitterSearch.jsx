@@ -4,56 +4,41 @@ import { map, orderBy } from "lodash";
 import Card from "../components/Card";
 function TwitterSearch(props) {
 
-    const [twitterData, setTwitterData] = useState({});
+    const [twitterData, setTwitterData] = useState([]);
 
     useEffect(() => {
-        setTwitterData(searchTwitter("suess"));
+        searchTwitter("suess");
     }, []);
 
-    const searchTwitter = (query) => {
-        return TwitterAPI.searchTweets(query);
+    const searchTwitter = async (query) => {
+        const results = await TwitterAPI.searchTweets(query);
+        setTwitterData(results);
     }
 
-    const retweetResults = orderBy(twitterData.data, ["public_metrics.retweet_count"], ["desc"]);
+    if(!twitterData.length) {
+        return <div>LOADING</div>
+    }
+
+    const retweetResults = orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"]);
     const topResults = map(retweetResults.slice(0,10), tweet => ({
         text:tweet.text,
         ...tweet.public_metrics
     }));
 
-    console.log(topResults);
+    console.log("topResults", topResults);
     console.log(topResults.length);
 
-    console.log(twitterData);
-    const mostRetweeted = twitterData ? orderBy(twitterData.data, ["public_metrics.retweet_count"], ["desc"]) : [];
-    const top10Retweets = map(mostRetweeted.slice(0,10), tweet => ({
-        text: tweet.text,
-        id: tweet.id,
-        count: tweet.public_metrics.retweet_count,
-    }));
-    console.log(top10Retweets);
+    console.log("TWITTER: ", twitterData);
+    const mostRetweeted = twitterData ? orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"]) : [];
+
     return (
         <Card>
-            <Card>
-                <p>{topResults.text}</p>
-                <p>Likes: {topResults.like_count}</p>
-                <p>Quotes: {topResults.quote_count}</p>
-                <p>Replies: {topResults.reply_count}</p>
-                <p>Retweets: {topResults.retweet_count}</p>
-            </Card>
-            <Card>
-                <p>{topResults.text}</p>
-                <p>Likes: {topResults.like_count}</p>
-                <p>Quotes: {topResults.quote_count}</p>
-                <p>Replies: {topResults.reply_count}</p>
-                <p>Retweets: {topResults.retweet_count}</p>
-            </Card>
-            <Card>
-                <p>{topResults.text}</p>
-                <p>Likes: {topResults.like_count}</p>
-                <p>Quotes: {topResults.quote_count}</p>
-                <p>Replies: {topResults.reply_count}</p>
-                <p>Retweets: {topResults.retweet_count}</p>
-            </Card>
+            {map(mostRetweeted.slice(0,10), tweet => (
+                <Card>
+                    <p>{tweet.text}</p>
+                    <p>Retweets: {tweet.public_metrics.retweet_count}</p>
+                </Card>
+            ))}
         </Card>
     )
 }
