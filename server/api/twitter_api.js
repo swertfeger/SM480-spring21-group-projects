@@ -1,3 +1,4 @@
+const _ = require("lodash");
 const TWITTER_BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAALJJLQEAAAAAMM88hKMMvNEShgxOIHEH8dIra%2BA%3DwwpyafVEeYGDtJMDNjQF0eNDLXWv8QMXblkrzBcfjNDQsZZtLv";
 const TWITTER_API_BASE = "https://api.twitter.com/2";
 const endpointURL = `${TWITTER_API_BASE}/tweets/search/recent`;
@@ -10,7 +11,7 @@ async function searchTweets (req, res) {
         // Make request
         const response = await getRequest(req.query['query']);
         if(response.data) {
-            res.status(200).json(response.data);
+            res.status(200).json(mapTweetAndUser(response));
         } else {
             res.status(200).json({ data: [] });
         }
@@ -22,6 +23,15 @@ async function searchTweets (req, res) {
 
 exports.searchTweets = searchTweets;
 
+
+function mapTweetAndUser(results) {
+    const { data, includes:{ users }} = results;
+    return _.map(data, tweet => ({
+        ...tweet,
+        user: _.find(users, user => user.id === tweet.author_id),
+    }))
+}
+
 async function getRequest(query) {
 
     // These are the parameters for the API request
@@ -31,6 +41,7 @@ async function getRequest(query) {
         "query": query,
         "tweet.fields": "author_id,text,created_at,public_metrics,attachments", // Edit optional query parameters here
         "expansions": "author_id",
+        "user.fields": "name,profile_image_url,username",
         "max_results": "100"
     }
 
