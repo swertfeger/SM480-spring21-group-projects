@@ -5,26 +5,38 @@ import Input from "../components/Input";
 import "./TwitterSearch.scss";
 
 function TwitterSearch(props) {
-  const [twitterData, setTwitterData] = useState(null);
+  const [twitterData, setTwitterData] = useState([]);
 
   useEffect(() => {
-    setTwitterData(searchTwitter("suess"));
+    searchTwitter("suess");
   }, []);
 
-  const searchTwitter = (query) => {
-    return TwitterAPI.searchTweets(query);
+  const searchTwitter = async (query) => {
+    const results = await TwitterAPI.searchTweets(query);
+    setTwitterData(results);
   };
 
-  console.log(twitterData);
-  const mostRetweeted = twitterData
-    ? orderBy(twitterData.data, ["public_metrics.retweet_count"], ["desc"])
-    : [];
-  const top10Retweets = map(mostRetweeted.slice(0, 10), (tweet) => ({
+  if (!twitterData.length) {
+    return <div>LOADING</div>;
+  }
+
+  const retweetResults = orderBy(
+    twitterData,
+    ["public_metrics.retweet_count"],
+    ["desc"]
+  );
+  const topResults = map(retweetResults.slice(0, 10), (tweet) => ({
     text: tweet.text,
-    id: tweet.id,
-    count: tweet.public_metrics.retweet_count,
+    ...tweet.public_metrics,
   }));
-  console.log(top10Retweets);
+
+  console.log("topResults", topResults);
+  console.log(topResults.length);
+
+  console.log("TWITTER: ", twitterData);
+  const mostRetweeted = twitterData
+    ? orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"])
+    : [];
 
   return (
     <div className='layout'>
@@ -51,19 +63,20 @@ function TwitterSearch(props) {
         <section className='section section--tweets'>
           <h1 className='section__heading'>Tweets</h1>
           <div className='section__content'>
-            <div className='tweet'>
-              <div className='tweet__avatar'></div>
-              <div className='tweet__content'>
-                <div className='tweet__author'>
-                  <div className='tweet__name'>Twitter Name</div>
-                  <div className='tweet__username'>@TwitterHandle</div>
+            {map(mostRetweeted.slice(0, 10), (tweet) => (
+              <div className='tweet'>
+                <div className='tweet__avatar'></div>
+                <div className='tweet__content'>
+                  <div className='tweet__author'>
+                    <div className='tweet__name'>Twitter Name</div>
+                    <div className='tweet__username'>@TwitterHandle</div>
+                  </div>
+                  <div className='tweet__message'>{tweet.text}</div>
+                  <div className='tweet__retweets'>{tweet.public_metrics.retweet_count}</div>
+                  <div className='tweet__images'></div>
                 </div>
-                <div className='tweet__message'>
-                  Somebody tweeted some words, and I guess and people liked it.
-                </div>
-                <div className='tweet__images'></div>
               </div>
-            </div>
+            ))}
           </div>
         </section>
 
