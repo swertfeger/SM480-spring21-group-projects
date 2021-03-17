@@ -80,6 +80,7 @@
   }
 
   &__content {
+    width: 100%;
     line-height: 22px;
   }
 
@@ -95,5 +96,21 @@
 
   &__username {
     color: $color--dark-gray;
+  }
+
+&__stats {
+  display: flex;
+}
+
+  &__stat {
+    flex: 1;
+    display: flex;
+    margin-top: 1rem;
+
+    &-count {
+      margin-left: 0.5rem;
+      line-height: 1.5rem;
+      color: $color--dark-gray;
+    }
   }
 }
