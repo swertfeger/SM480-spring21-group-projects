@@ -3,11 +3,13 @@ import * as TwitterAPI from "../utils/TwitterAPI";
 import { map, orderBy } from "lodash";
 import Input from "../components/Input";
 import "./TwitterSearch.scss";
+import InfoPopUp from "../components/InfoPopUp";
 
 import VerticalChart from "../components/VerticalChart";
 import LineChart from "../components/LineChart";
 import AreaChart from "../components/AreaChart";
 import PieChart from "../components/PieChart";
+
 
 
 
@@ -22,6 +24,13 @@ function TwitterSearch(props) {
     return TwitterAPI.searchTweets(query);
   };
 
+  const [showPopup, setShowPopup] = useState(false);
+  const onTweetClick = () => {
+    console.log("Show me")
+    // setShowPopup(true);
+    // return;
+}
+
   console.log(twitterData);
   const mostRetweeted = twitterData
     ? orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"])
@@ -33,8 +42,9 @@ function TwitterSearch(props) {
   }));
   console.log(top10Retweets);
 
-  return (
-    <div className='layout'>
+  if (!showPopup) {
+    return (
+      <div className='layout'>
       <nav className='nav'>
         <svg
           width='76'
@@ -58,6 +68,8 @@ function TwitterSearch(props) {
         <section className='section section--tweets'>
           <h1 className='section__heading'>Tweets</h1>
           <div className='section__content'>
+            {/* Button */}
+            <button full onClick={() => onTweetClick("Tweet Details")}>
             <div className='tweet'>
               <div className='tweet__avatar'></div>
               <div className='tweet__content'>
@@ -71,6 +83,7 @@ function TwitterSearch(props) {
                 <div className='tweet__images'></div>
               </div>
             </div>
+            </button>
           </div>
         </section>
 
@@ -84,9 +97,16 @@ function TwitterSearch(props) {
 
           </div>
         </section>
+
+        <InfoPopUp
+          // show={showPopup}
+          // hidePopUp={() => setShowPopup(false)}
+          // onClose={() => setShowPopup(false)}
+        />
       </main>
     </div>
   );
+  }
 }
 
 export default TwitterSearch;
