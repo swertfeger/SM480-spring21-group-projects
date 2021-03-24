@@ -25,8 +25,7 @@ function TwitterSearch(props) {
 
   const [showPopup, setShowPopup] = useState(false);
   const onTweetClick = (e) => {
-    console.log(e.target.tweet);
-    // setShowPopup(true);
+    setShowPopup(true);
     return;
   };
 
