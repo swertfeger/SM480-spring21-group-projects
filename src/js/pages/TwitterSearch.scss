@@ -98,6 +98,14 @@
     color: $color--dark-gray;
   }
 
+  &__metrics {
+    position: absolute;
+    background-color: $color--white;
+    height: 70%;
+    width: 50%;
+    margin: 7.5% 25%;
+  }
+
 &__stats {
   display: flex;
 }
