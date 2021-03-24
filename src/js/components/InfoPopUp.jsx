@@ -4,6 +4,7 @@ import "./ConnectPopUp.scss";
 
 function InfoPopUp(props) {
 
+    console.log(props.tweet);
     // Decides if the popup should show or not
     if(!props.show) {
         return null;
@@ -18,52 +19,52 @@ function InfoPopUp(props) {
 
             {/* Tweet ID */}
             <div> Tweet ID: 
-                <span>{props.twitterID}</span>
+                <span>{props.tweet.id}</span>
             </div>
 
             {/* Date */}
             <div> Date Tweeted:
-                <span>{props.date}</span>
+                <span>{props.tweet.created_at}</span>
             </div>
 
             {/* Name */}
             <div> Name:
-                <span>{props.twitterName}</span>
+                <span>{props.tweet.user.name}</span>
             </div>
 
             {/* Username */}
             <div> Username:
-                <span>{props.username}</span>
+                <span>{props.tweet.user.username}</span>
             </div>
 
             {/* Likes */}
             <div> Number of Likes:
-                <span>{props.likes}</span>
+                <span>{props.tweet.public_metrics.like_count}</span>
             </div>
 
             {/* Retweets */}
             <div> Number of Retweets:
-                <span>{props.retweets}</span>
+                <span>{props.tweet.public_metrics.retweet_count}</span>
             </div>
 
             {/* Replys */}
             <div> Number of Replys:
-                <span>{props.replys}</span>
+                <span>{props.tweet.public_metrics.reply_count}</span>
             </div>
 
             {/* Retweets */}
             <div> Number of Quotes:
-                <span>{props.quotes}</span>
+                <span>{props.tweet.public_metrics.quote_count}</span>
             </div>
 
             {/* text */}
             <div> Text:
-                <span>{props.text}</span>
+                <span>{props.tweet.text}</span>
             </div>
             
             {/* Media URL */}
             <div> Media URL:
-                <span>{props.url}</span>
+                <span>{props.tweet.url}</span>
             </div>
         </div>
     
@@ -72,15 +73,16 @@ function InfoPopUp(props) {
 
 InfoPopUp.propTypes = {
     // twitter ID
-    twitterID: PropTypes.string.isRequired,
-    date: PropTypes.string,
-    twitterName: PropTypes.string,
-    username: PropTypes.string,
-    retweets: PropTypes.string,
-    replys: PropTypes.string,
-    quotes: PropTypes.string,
-    text: PropTypes.string,
-    url: PropTypes.string,
+    tweet: PropTypes.object.isRequired,
+    // twitterID: PropTypes.string.isRequired,
+    // date: PropTypes.string,
+    // twitterName: PropTypes.string,
+    // username: PropTypes.string,
+    // retweets: PropTypes.string,
+    // replys: PropTypes.string,
+    // quotes: PropTypes.string,
+    // text: PropTypes.string,
+    // url: PropTypes.string,
     show: PropTypes.bool,
     // for hiding pop up
     hidePopUp: PropTypes.func,

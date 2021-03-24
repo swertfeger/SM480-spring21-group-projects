@@ -13,6 +13,7 @@ import PieChart from "../components/PieChart";
 
 function TwitterSearch(props) {
   const [twitterData, setTwitterData] = useState(null);
+  const [selectedTweet, setSelectedTweet] = useState(null);
 
   useEffect(() => {
     setTwitterData(searchTwitter("suess"));
@@ -23,13 +24,11 @@ function TwitterSearch(props) {
     setTwitterData(results);
   };
 
-  const [showPopup, setShowPopup] = useState(false);
-  const onTweetClick = (e) => {
-    setShowPopup(true);
-    return;
+  const onTweetClick = (tweet) => {
+    setSelectedTweet(tweet)
   };
 
-  console.log(twitterData);
+
   const mostRetweeted = twitterData
     ? orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"])
     : [];
@@ -38,7 +37,6 @@ function TwitterSearch(props) {
     id: tweet.id,
     count: tweet.public_metrics.retweet_count,
   }));
-  console.log(top10Retweets);
 
   return (
     <div className='layout'>
@@ -67,13 +65,13 @@ function TwitterSearch(props) {
           <div className='section__content'>
             {/* Button */}
             {map(mostRetweeted.slice(0, 10), (tweet) => (
-              <div className='tweet' onClick={(e) => onTweetClick(e)}>
+              <div className='tweet' onClick={() => onTweetClick(tweet)}>
                 <div
                   className='tweet__avatar'
                   style={{
                     backgroundImage: `url(${tweet.user.profile_image_url})`,
                   }}
-                ></div>
+                />
                 <div className='tweet__content'>
                   <div className='tweet__author'>
                     <div className='tweet__name'>{tweet.user.name}</div>
@@ -102,7 +100,7 @@ function TwitterSearch(props) {
                       </div>
                     </div>
                   </div>
-                  <div className='tweet__images'></div>
+                  <div className='tweet__images' />
                 </div>
               </div>
             ))}
@@ -120,11 +118,11 @@ function TwitterSearch(props) {
         </section>
       </main>
 
-      {showPopup && (
+      {!!selectedTweet && (  // NOT NOT selectedTweet converts from string to Boolean
         <InfoPopUp
           show={onTweetClick}
-          hidePopUp={() => setShowPopup(false)}
-          onClose={() => setShowPopup(false)}
+          tweet={selectedTweet}
+          hidePopUp={() => setSelectedTweet(null)}
         />
       )}
     </div>
