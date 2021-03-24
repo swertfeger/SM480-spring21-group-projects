@@ -3,26 +3,32 @@ import * as TwitterAPI from "../utils/TwitterAPI";
 import { map, orderBy } from "lodash";
 import Input from "../components/Input";
 import "./TwitterSearch.scss";
+import InfoPopUp from "../components/InfoPopUp";
+import Icon from "../components/Icon";
 
 import VerticalChart from "../components/VerticalChart";
 import LineChart from "../components/LineChart";
 import AreaChart from "../components/AreaChart";
 import PieChart from "../components/PieChart";
 
-
-
 function TwitterSearch(props) {
   const [twitterData, setTwitterData] = useState(null);
+  const [selectedTweet, setSelectedTweet] = useState(null);
 
   useEffect(() => {
     setTwitterData(searchTwitter("suess"));
   }, []);
 
-  const searchTwitter = (query) => {
-    return TwitterAPI.searchTweets(query);
+  const searchTwitter = async (query) => {
+    const results = await TwitterAPI.searchTweets(query);
+    setTwitterData(results);
   };
 
-  console.log(twitterData);
+  const onTweetClick = (tweet) => {
+    setSelectedTweet(tweet)
+  };
+
+
   const mostRetweeted = twitterData
     ? orderBy(twitterData, ["public_metrics.retweet_count"], ["desc"])
     : [];
@@ -31,7 +37,6 @@ function TwitterSearch(props) {
     id: tweet.id,
     count: tweet.public_metrics.retweet_count,
   }));
-  console.log(top10Retweets);
 
   return (
     <div className='layout'>
@@ -58,19 +63,47 @@ function TwitterSearch(props) {
         <section className='section section--tweets'>
           <h1 className='section__heading'>Tweets</h1>
           <div className='section__content'>
-            <div className='tweet'>
-              <div className='tweet__avatar'></div>
-              <div className='tweet__content'>
-                <div className='tweet__author'>
-                  <div className='tweet__name'>Twitter Name</div>
-                  <div className='tweet__username'>@TwitterHandle</div>
+            {/* Button */}
+            {map(mostRetweeted.slice(0, 10), (tweet) => (
+              <div className='tweet' onClick={() => onTweetClick(tweet)}>
+                <div
+                  className='tweet__avatar'
+                  style={{
+                    backgroundImage: `url(${tweet.user.profile_image_url})`,
+                  }}
+                />
+                <div className='tweet__content'>
+                  <div className='tweet__author'>
+                    <div className='tweet__name'>{tweet.user.name}</div>
+                    <div className='tweet__username'>
+                      @{tweet.user.username}
+                    </div>
+                  </div>
+                  <div className='tweet__message'>{tweet.text}</div>
+                  <div className='tweet__stats'>
+                    <div className='tweet__stat'>
+                      <Icon type='reply' />
+                      <div className='tweet__stat-count'>
+                        {tweet.public_metrics.reply_count}
+                      </div>
+                    </div>
+                    <div className='tweet__stat'>
+                      <Icon type='retweet' />
+                      <div className='tweet__stat-count'>
+                        {tweet.public_metrics.retweet_count}
+                      </div>
+                    </div>
+                    <div className='tweet__stat'>
+                      <Icon type='like' />
+                      <div className='tweet__stat-count'>
+                        {tweet.public_metrics.like_count}
+                      </div>
+                    </div>
+                  </div>
+                  <div className='tweet__images' />
                 </div>
-                <div className='tweet__message'>
-                  Somebody tweeted some words, and I guess and people liked it.
-                </div>
-                <div className='tweet__images'></div>
               </div>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -81,10 +114,17 @@ function TwitterSearch(props) {
             <LineChart />
             <AreaChart />
             <PieChart />
-
           </div>
         </section>
       </main>
+
+      {!!selectedTweet && (  // NOT NOT selectedTweet converts from string to Boolean
+        <InfoPopUp
+          show={onTweetClick}
+          tweet={selectedTweet}
+          hidePopUp={() => setSelectedTweet(null)}
+        />
+      )}
     </div>
   );
 }

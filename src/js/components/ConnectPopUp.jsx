@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from "prop-types";
 import ReactDOM from 'react-dom';
 import "./ConnectPopUp.scss";
-import Icon from "./Icon";
-import LoginForm from "./LoginForm";
 
 function ConnectPopUp(props) {
 
